@@ -38,7 +38,7 @@ public class RickCharacterServiceImpl implements RickCharacterService {
     @Override
     public ResponseDto getRandomCharacter() {
         var count = (int) repository.count();
-        return repository.findAll(PageRequest.of(random.nextInt(1, count), 1)).stream().findFirst()
+        return repository.findAll(PageRequest.of(random.nextInt(count), 1)).stream().findFirst()
                 .map(mapper::toResponseDto).orElseThrow(RuntimeException::new);
     }
 

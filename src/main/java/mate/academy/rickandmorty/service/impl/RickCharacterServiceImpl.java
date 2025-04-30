@@ -38,6 +38,9 @@ public class RickCharacterServiceImpl implements RickCharacterService {
     @Override
     public ResponseDto getRandomCharacter() {
         var count = (int) repository.count();
+        if (count == 0) {
+            throw new IllegalStateException("The database is empty.");
+        }
         return repository.findAll(PageRequest.of(random.nextInt(count), 1)).stream().findFirst()
                 .map(mapper::toResponseDto).orElseThrow(RuntimeException::new);
     }
